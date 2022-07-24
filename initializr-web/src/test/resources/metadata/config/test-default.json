@@ -10,18 +10,18 @@
     "content": [
       {
         "default": false,
-        "id": "1.2.0.BUILD-SNAPSHOT",
+        "id": "2.5.0-SNAPSHOT",
         "name": "Latest SNAPSHOT"
       },
       {
         "default": true,
-        "id": "1.1.4.RELEASE",
-        "name": "1.1.4"
+        "id": "2.4.4",
+        "name": "2.4.4"
       },
       {
         "default": false,
-        "id": "1.0.2.RELEASE",
-        "name": "1.0.2"
+        "id": "2.3.10.RELEASE",
+        "name": "2.3.10"
       }
     ],
     "description": "spring boot version",
@@ -32,20 +32,36 @@
   "configuration": {"env": {
     "artifactRepository": "https://repo.spring.io/release/",
     "fallbackApplicationName": "Application",
-    "forceSsl": true,
+    "forceSsl": false,
     "gradle": {
-      "dependencyManagementPluginVersion": null
+      "dependencyManagementPluginVersion": "1.0.0.RELEASE"
     },
     "kotlin": {
-      "version": null
+      "defaultVersion": "1.5",
+      "mappings": [
+        {
+          "compatibilityRange": "[2.3.0.RELEASE,2.4.0-M1)",
+          "version": "1.3.72"
+        },
+        {
+          "compatibilityRange": "[2.4.0-M1,2.5.0-M1)",
+          "version": "1.4.31"
+        }
+      ]
     },
     "maven": {
       "parent": {
         "groupId": null,
         "artifactId": null,
         "version": null,
+        "relativePath": "",
         "includeSpringBootBom": false
       }
+    },
+    "platform": {
+      "compatibilityRange": null,
+      "v1FormatCompatibilityRange": null,
+      "v2FormatCompatibilityRange": null
     },
     "googleAnalyticsTrackingCode": null,
     "invalidApplicationNames": [
@@ -58,53 +74,56 @@
     "repositories": {
       "my-api-repo-1": {
         "name": "repo1",
-        "url": "http://example.com/repo1",
+        "url": "https://example.com/repo1",
+        "releasesEnabled": true,
         "snapshotsEnabled": false
       },
       "my-api-repo-2": {
         "name": "repo2",
-        "url": "http://example.com/repo2",
+        "url": "https://example.com/repo2",
+        "releasesEnabled": true,
         "snapshotsEnabled": false
       },
       "my-api-repo-3": {
         "name": "repo3",
-        "url": "http://example.com/repo3",
+        "url": "https://example.com/repo3",
+        "releasesEnabled": true,
         "snapshotsEnabled": false
       },
       "spring-milestones": {
         "name": "Spring Milestones",
-        "snapshotsEnabled": false,
-        "url": "https://repo.spring.io/milestone"
+        "url": "https://repo.spring.io/milestone",
+        "releasesEnabled": true,
+        "snapshotsEnabled": false
       },
       "spring-snapshots": {
         "name": "Spring Snapshots",
-        "snapshotsEnabled": true,
-        "url": "https://repo.spring.io/snapshot"
+        "url": "https://repo.spring.io/snapshot",
+        "releasesEnabled": false,
+        "snapshotsEnabled": true
       }
     },
     "boms": {
       "my-api-bom": {
         "groupId": "org.acme",
         "artifactId": "my-api-bom",
-        "repositories": [],
+        "versionProperty": "my-api.version",
         "additionalBoms": [
           "my-api-dependencies-bom"
         ],
         "mappings": [
           {
-            "versionRange": "[1.0.0.RELEASE,1.1.6.RELEASE)",
+            "compatibilityRange": "[2.3.0.RELEASE,2.4.6)",
             "repositories": [
               "my-api-repo-1"
             ],
-            "additionalBoms": [],
             "version": "1.0.0.RELEASE"
           },
           {
-            "versionRange": "1.2.1.RELEASE",
+            "compatibilityRange": "2.4.6",
             "repositories": [
               "my-api-repo-2"
             ],
-            "additionalBoms": [],
             "version": "2.0.0.RELEASE"
           }
         ]
@@ -114,9 +133,7 @@
         "repositories": [
           "my-api-repo-3"
         ],
-        "mappings": [],
         "artifactId": "my-api-dependencies-bom",
-        "additionalBoms": [],
         "version": "1.0.0.RELEASE"
       }
     },
@@ -134,7 +151,18 @@
             "groupId": "org.springframework.boot",
             "id": "web",
             "name": "Web",
-            "scope": "compile"
+            "scope": "compile",
+            "links": [
+              {
+                "rel": "guide",
+                "description": "Building a RESTful Web Service",
+                "href": "https://example.com/guide"
+              },
+              {
+                "rel": "reference",
+                "href": "https://example.com/doc"
+              }
+            ]
           },
           {
             "starter": true,
@@ -167,7 +195,23 @@
             "starter": true,
             "keywords": ["thefoo", "dafoo"],
             "scope": "compile",
-            "version": "1.3.5"
+            "version": "1.3.5",
+            "links": [
+              {
+                "rel": "guide",
+                "href": "https://example.com/guide1"
+              },
+              {
+                "rel": "reference",
+                "href": "https://example.com/{bootVersion}/doc",
+                "templated": true
+              },
+              {
+                "rel": "guide",
+                "description": "Some guide for foo",
+                "href": "https://example.com/guide2"
+              }
+            ]
           },
           {
             "starter": true,
@@ -186,7 +230,7 @@
             "name": "Biz",
             "scope": "runtime",
             "version": "1.3.5",
-            "versionRange": "1.2.0.BUILD-SNAPSHOT"
+            "compatibilityRange": "2.6.0-SNAPSHOT"
           },
           {
             "starter": true,
@@ -196,7 +240,7 @@
             "name": "Bur",
             "scope": "test",
             "version": "2.1.0",
-            "versionRange": "[1.1.4.RELEASE,1.2.0.BUILD-SNAPSHOT)"
+            "compatibilityRange": "[2.4.4,2.5.0-SNAPSHOT)"
           },
           {
             "starter": true,
@@ -284,7 +328,7 @@
     "type": "TEXT"
   },
   "packageName": {
-    "content": "com.example",
+    "content": "com.example.demo",
     "description": "root package",
     "id": "packageName",
     "title": "Package Name",
@@ -316,7 +360,6 @@
         "description": null,
         "id": "maven-build",
         "name": "Maven POM",
-        "stsId": "pom.xml",
         "tags": {
           "build": "maven",
           "format": "build"
@@ -328,7 +371,6 @@
         "description": null,
         "id": "maven-project",
         "name": "Maven Project",
-        "stsId": "starter.zip",
         "tags": {
           "build": "maven",
           "format": "project"
@@ -340,7 +382,6 @@
         "description": null,
         "id": "gradle-build",
         "name": "Gradle Config",
-        "stsId": "build.gradle",
         "tags": {
           "build": "gradle",
           "format": "build"
@@ -352,7 +393,6 @@
         "description": null,
         "id": "gradle-project",
         "name": "Gradle Project",
-        "stsId": "gradle.zip",
         "tags": {
           "build": "gradle",
           "format": "project"
