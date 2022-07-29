@@ -13,7 +13,7 @@ pipeline {
 	 
     }
 	
-	stage("Compile") {
+	stage("Maven Compile") {
 	  steps {
 	    sh "mvn compile"
 	    
@@ -22,7 +22,7 @@ pipeline {
 	}
 	
 		
-	stage ("Clean") {
+	stage ("Maven Clean") {
 	  steps {
 	    sh "mvn clean package"
 	  }
