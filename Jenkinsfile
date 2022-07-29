@@ -8,16 +8,15 @@ pipeline {
   stages {
     stage("GIT Checkout") {
       steps {
-	    git url: "https://github.com/ssoella/pg-proj1jenkins.git"
+	    git url: "https://github.com/ssoella/initializr.git"
 	  }
 	 
     }
 	
 	stage("Compile") {
 	  steps {
-	    script {
-		  rtMaven.run pom: 'pom.xml', goals: 'clean install', buildInfo: buildInfo
-	    }  
+	    sh "mvn compile"
+	    
 	  }
 		
 	}
