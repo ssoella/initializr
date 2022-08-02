@@ -42,13 +42,20 @@ pipeline {
 	  steps {
 	    script {
 		  rtMaven.tool = "my_maven"
-		  rtMaven.run pom: 'maven-example/pom.xml', goals: 'clean install', buildInfo: existingBuildInfo
-	      //rtMaven.deployer.deployArtifacts  buildInfo 
+		  //rtMaven.deployer.deployArtifacts  buildInfo 
 		  rtMaven.deployer releaseRepo: 'initializr', server: server
 	    }
 	  }
 	}
 	
+	stage("Deploy Artifact to Artifactory Repo") {
+	  steps {
+	    script {
+		  rtMaven.run pom: 'maven-example/pom.xml', goals: 'clean install', buildInfo: existingBuildInfo
+		  
+	    }
+	  }	
+	}
 		 
   }
 }
