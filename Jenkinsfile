@@ -1,12 +1,11 @@
 def  rtMaven = Artifactory.newMavenBuild()
-def  rtMaven.deployer server: server, releaseRepo: 'initializr'
+def  server = Artifactory.server
 
 pipeline {
   agent any
   tools {
      maven "my_maven"
 	 rtMaven.tool = "my_maven"
-	 rtMaven.deployer server: server, releaseRepo: 'initializr'
   }
 
   stages {
@@ -41,9 +40,11 @@ pipeline {
 	
 	stage("Deploy Artifact to Artifactory Repo") {
 	  steps {
-	    def buildInfo = rtMaven.run pom: 'maven-example/pom.xml', goals: 'clean install'
+	    script {
+	      rtMaven.deployer.deployArtifacts  buildInfo 
+		  rtMaven.deployer releaseRepo: 'initializr', server: server
+	    }
 	  }
-	  
 	}
 	
 		 
