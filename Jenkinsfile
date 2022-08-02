@@ -5,7 +5,7 @@ pipeline {
   agent any
   tools {
      maven "my_maven"
-	 rtMaven.tool = "my_maven"
+	 
   }
 
   stages {
@@ -41,6 +41,7 @@ pipeline {
 	stage("Deploy Artifact to Artifactory Repo") {
 	  steps {
 	    script {
+		  rtMaven.tool = "my_maven"
 	      rtMaven.deployer.deployArtifacts  buildInfo 
 		  rtMaven.deployer releaseRepo: 'initializr', server: server
 	    }
