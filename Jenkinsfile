@@ -42,7 +42,6 @@ pipeline {
 	  steps {
 	    script {
 		  rtMaven.tool = "my_maven"
-		  //rtMaven.deployer.deployArtifacts  buildInfo 
 		  rtMaven.deployer releaseRepo: 'initializr', server: server
 	    }
 	  }
