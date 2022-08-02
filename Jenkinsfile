@@ -42,7 +42,8 @@ pipeline {
 	  steps {
 	    script {
 		  rtMaven.tool = "my_maven"
-	      rtMaven.deployer.deployArtifacts  buildInfo 
+		  rtMaven.run pom: 'maven-example/pom.xml', goals: 'clean install', buildInfo: existingBuildInfo
+	      //rtMaven.deployer.deployArtifacts  buildInfo 
 		  rtMaven.deployer releaseRepo: 'initializr', server: server
 	    }
 	  }
