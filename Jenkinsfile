@@ -1,5 +1,5 @@
 def  rtMaven = Artifactory.newMavenBuild()
-def  server = ssoella-artifactory
+def  server = "ssoella-artifactory"
 
 pipeline {
   agent any
