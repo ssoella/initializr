@@ -1,18 +1,16 @@
+def  rtMaven = Artifactory.newMavenBuild()
+def  rtMaven.deployer server: server, releaseRepo: 'initializr'
+
 pipeline {
   agent any
   tools {
      maven "my_maven"
-	 
+	 rtMaven.tool = "my_maven"
+	 rtMaven.deployer server: server, releaseRepo: 'initializr'
   }
 
   stages {
-    stage("GIT Checkout") {
-      steps {
-	    git url: "https://github.com/ssoella/initializr.git"
-	  }
-	 
-    }
-	
+    	
 	stage("Maven Compile") {
 	  steps {
 	    sh "mvn compile"
@@ -40,7 +38,15 @@ pipeline {
           } 
        }  
 	}
-	 
+	
+	stage("Deploy Artifact to Artifactory Repo") {
+	  steps {
+	    def buildInfo = rtMaven.run pom: 'maven-example/pom.xml', goals: 'clean install'
+	  }
+	  
+	}
+	
+		 
   }
 }
 	
