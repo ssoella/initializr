@@ -42,7 +42,7 @@ pipeline {
 	  steps {
 	    script {
 		  rtMaven.tool = "my_maven"
-		  rtMaven.deployer releaseRepo: 'initializr', server: server
+		  rtMaven.deployer releaseRepo: 'initializr', server: ssoella-artifactory
 	    }
 	  }
 	}
