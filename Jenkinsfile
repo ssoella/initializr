@@ -38,7 +38,7 @@ pipeline {
        }  
 	}
 	
-	stage("Deploy Artifact to Artifactory Repo") {
+	stage("Setup Artifactory Repo") {
 	  steps {
 	    script {
 		  rtMaven.tool = "my_maven"
