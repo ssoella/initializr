@@ -1,5 +1,5 @@
 def  rtMaven = Artifactory.newMavenBuild()
-def  server = Artifactory.server
+
 
 pipeline {
   agent any
@@ -40,9 +40,10 @@ pipeline {
 	
 	stage("Setup Artifactory Repo") {
 	  steps {
+	    def  server = Artifactory.server "ssoella-artifactory"
 	    script {
 		  rtMaven.tool = "my_maven"
-		  rtMaven.deployer releaseRepo: "initializr", server: Artifactory.server
+		  rtMaven.deployer releaseRepo: "initializr", server: server
 	    }
 	  }
 	}
@@ -50,7 +51,7 @@ pipeline {
 	stage("Deploy Artifact to Artifactory Repo") {
 	  steps {
 	    script {
-		  rtMaven.run pom: "maven-example/pom.xml", goals: "clean install", buildInfo: existingBuildInfo
+		  rtMaven.run pom: "pom.xml", goals: "clean install", buildInfo: buildInfo
 		  
 	    }
 	  }	
