@@ -42,7 +42,7 @@ pipeline {
 	  steps {
 	    script {
 		  def  server = Artifactory.server "ssoella-artifactory"
-		  def buildInfo = Artifactory.newBuildInfo()
+		  buildInfo = Artifactory.newBuildInfo()
 		  rtMaven.tool = "my_maven"
 		  rtMaven.deployer server: server, releaseRepo: "initializr", snapshotRepo: "initializr-snapshot"
 		  buildInfo.env.capture = true
