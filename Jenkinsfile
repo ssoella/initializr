@@ -1,5 +1,5 @@
 def  rtMaven = Artifactory.newMavenBuild()
-
+def buildInfo
 
 pipeline {
   agent any
