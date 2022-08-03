@@ -40,8 +40,8 @@ pipeline {
 	
 	stage("Setup Artifactory Repo") {
 	  steps {
-	    def  server = Artifactory.server "ssoella-artifactory"
 	    script {
+		  def  server = Artifactory.server "ssoella-artifactory"
 		  rtMaven.tool = "my_maven"
 		  
 	    }
