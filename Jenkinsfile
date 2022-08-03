@@ -43,7 +43,7 @@ pipeline {
 	    def  server = Artifactory.server "ssoella-artifactory"
 	    script {
 		  rtMaven.tool = "my_maven"
-		  rtMaven.deployer releaseRepo: "initializr", server: server
+		  
 	    }
 	  }
 	}
