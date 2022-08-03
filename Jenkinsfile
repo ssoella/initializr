@@ -48,6 +48,14 @@ pipeline {
 	  }
 	}
 	
+	stage("Deploy Artifact to Artifactory Repo") {
+	  steps {
+	    script {
+		  rtMaven.run pom: "pom.xml", goals: "clean install", buildInfo: buildInfo
+	    }
+	  }	
+	}
+	
 	
 		 
   }
