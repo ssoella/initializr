@@ -42,7 +42,7 @@ pipeline {
 	  steps {
 	    script {
 		  rtMaven.tool = "my_maven"
-		  rtMaven.deployer releaseRepo: 'initializr', server: ssoella-artifactory
+		  rtMaven.deployer releaseRepo: "initializr", server: server
 	    }
 	  }
 	}
@@ -50,7 +50,7 @@ pipeline {
 	stage("Deploy Artifact to Artifactory Repo") {
 	  steps {
 	    script {
-		  rtMaven.run pom: 'maven-example/pom.xml', goals: 'clean install', buildInfo: existingBuildInfo
+		  rtMaven.run pom: "maven-example/pom.xml", goals: "clean install", buildInfo: existingBuildInfo
 		  
 	    }
 	  }	
