@@ -1,5 +1,5 @@
 def  rtMaven = Artifactory.newMavenBuild()
-def  server = "ssoella-artifactory"
+def  server = Artifactory.server
 
 pipeline {
   agent any
@@ -42,7 +42,7 @@ pipeline {
 	  steps {
 	    script {
 		  rtMaven.tool = "my_maven"
-		  rtMaven.deployer releaseRepo: "initializr", server: server
+		  rtMaven.deployer releaseRepo: "initializr", server: Artifactory.server
 	    }
 	  }
 	}
