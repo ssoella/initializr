@@ -58,6 +58,11 @@ pipeline {
 	  }	
 	}
 	
+	post("Notify Slack Channel") {
+	   success {
+	     slackSend "Build Successful - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+	   }
+	}
 	
 		 
   }
