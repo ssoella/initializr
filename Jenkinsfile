@@ -44,6 +44,7 @@ pipeline {
 		  def  server = Artifactory.server "ssoella-artifactory"
 		  buildInfo = Artifactory.newBuildInfo()
 		  rtMaven.tool = "my_maven"
+		  rtMaven.resolver server: server, releaseRepo: "initializr", snapshotRepo: "initializr-snapshot"
 		  rtMaven.deployer server: server, releaseRepo: "initializr", snapshotRepo: "initializr-snapshot"
 		  buildInfo.env.capture = true
 	    }
@@ -62,7 +63,7 @@ pipeline {
    
 	post("Notify Slack Channel") {
 	   success {
-	     slackSend message: "Build Successful - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+	     slackSend color: "good", message: "Build Successful - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
 	   }
 	}	 
   
